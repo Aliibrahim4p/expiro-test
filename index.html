@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <meta name="description" content="Expiro — our mobile app is coming soon. Stay tuned." />
+  <title>Expiro — Stay Tuned</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --text: #f4f6fb;
+      --muted: #9aa3b8;
+      --accent-1: #7c5cff;
+      --accent-2: #00d4c8;
+      --accent-3: #ff6b9a;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 24px 16px;
+      position: relative;
+    }
+
+    /* Animated background blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.55;
+      z-index: 0;
+      animation: float 14s ease-in-out infinite;
+    }
+    .blob.b1 { width: 340px; height: 340px; background: var(--accent-1); top: -80px; left: -80px; }
+    .blob.b2 { width: 300px; height: 300px; background: var(--accent-2); bottom: -90px; right: -70px; animation-delay: -5s; }
+    .blob.b3 { width: 220px; height: 220px; background: var(--accent-3); top: 45%; left: 60%; animation-delay: -9s; opacity: 0.35; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%      { transform: translate(40px, -30px) scale(1.08); }
+      66%      { transform: translate(-30px, 30px) scale(0.95); }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 820px) {
+      .wrap {
+        grid-template-columns: 1.1fr 0.9fr;
+        text-align: left;
+        justify-items: start;
+      }
+      .phone-col { justify-self: center; }
+    }
+
+    /* Text */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+      animation: rise 0.8s ease both;
+    }
+    .badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 0 rgba(0, 212, 200, 0.7);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(0, 212, 200, 0.7); }
+      70%  { box-shadow: 0 0 0 10px rgba(0, 212, 200, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 212, 200, 0); }
+    }
+
+    h1 {
+      font-size: clamp(42px, 11vw, 84px);
+      font-weight: 800;
+      line-height: 1.05;
+      margin: 18px 0 12px;
+      letter-spacing: -1px;
+      animation: rise 0.8s 0.15s ease both;
+    }
+    h1 .grad {
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3), var(--accent-1));
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 6s linear infinite;
+    }
+    @keyframes shimmer {
+      to { background-position: 300% 0; }
+    }
+
+    .domain {
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 600;
+      color: var(--text);
+      opacity: 0.9;
+      animation: rise 0.8s 0.3s ease both;
+    }
+
+    .sub {
+      margin-top: 14px;
+      font-size: clamp(15px, 3.8vw, 18px);
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.6;
+      animation: rise 0.8s 0.45s ease both;
+    }
+
+    .loading {
+      display: inline-flex;
+      gap: 8px;
+      margin-top: 28px;
+      animation: rise 0.8s 0.6s ease both;
+    }
+    .loading span {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+    .loading span:nth-child(2) { animation-delay: 0.15s; }
+    .loading span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+      40%           { transform: translateY(-12px); opacity: 1; }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Phone mockup */
+    .phone-col { animation: rise 1s 0.3s ease both; }
+
+    .phone {
+      width: 230px;
+      height: 460px;
+      border-radius: 38px;
+      background: linear-gradient(160deg, #1a2033, #0f1424);
+      border: 2px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 0 0 6px #0b0f1a;
+      position: relative;
+      padding: 44px 18px 18px;
+      animation: hover 5s ease-in-out infinite;
+    }
+    @keyframes hover {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50%      { transform: translateY(-16px) rotate(2deg); }
+    }
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 14px; left: 50%;
+      transform: translateX(-50%);
+      width: 80px; height: 20px;
+      border-radius: 12px;
+      background: #05070d;
+    }
+
+    .ring {
+      width: 120px; height: 120px;
+      margin: 6px auto 20px;
+      position: relative;
+    }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
+    .ring .track { stroke: rgba(255, 255, 255, 0.08); }
+    .ring .bar {
+      stroke: url(#g);
+      stroke-dasharray: 314;
+      stroke-dashoffset: 314;
+      animation: fill 4s ease-in-out infinite;
+    }
+    @keyframes fill {
+      0%   { stroke-dashoffset: 314; }
+      60%  { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 314; }
+    }
+    .ring .icon {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      font-size: 34px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: slide 6s ease-in-out infinite;
+    }
+    .item:nth-child(3) { animation-delay: 0.4s; }
+    .item:nth-child(4) { animation-delay: 0.8s; }
+    .item .chip {
+      width: 28px; height: 28px; border-radius: 9px; flex-shrink: 0;
+    }
+    .item .lines { flex: 1; text-align: left; }
+    .item .l1, .item .l2 {
+      height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.25);
+    }
+    .item .l1 { width: 80%; margin-bottom: 6px; }
+    .item .l2 { width: 50%; background: rgba(255, 255, 255, 0.12); }
+    .item .tag {
+      font-size: 10px; font-weight: 600;
+      padding: 3px 7px; border-radius: 6px;
+    }
+    @keyframes slide {
+      0%       { opacity: 0; transform: translateX(-20px); }
+      10%, 80% { opacity: 1; transform: translateX(0); }
+      100%     { opacity: 0; transform: translateX(20px); }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 14px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      z-index: 1;
+      padding: 0 16px;
+    }
+
+    @media (max-width: 819px) {
+      body { padding-bottom: 56px; }
+      .phone { width: 200px; height: 400px; padding-top: 40px; }
+      .ring { width: 100px; height: 100px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+      .item { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <main class="wrap">
+    <section>
+      <span class="badge"><span class="dot"></span> Mobile app coming soon</span>
+      <h1>Stay <span class="grad">Tuned</span></h1>
+      <p class="domain">expiro.store</p>
+      <p class="sub">Something fresh is on its way. Our mobile app is almost ready — check back soon.</p>
+      <div class="loading" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+
+    <div class="phone-col" aria-hidden="true">
+      <div class="phone">
+        <div class="ring">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7c5cff" />
+                <stop offset="100%" stop-color="#00d4c8" />
+              </linearGradient>
+            </defs>
+            <circle class="track" cx="60" cy="60" r="50" />
+            <circle class="bar" cx="60" cy="60" r="50" />
+          </svg>
+          <div class="icon">⏳</div>
+        </div>
+
+        <div class="item">
+          <div class="chip" style="background:#7c5cff"></div>
+          <div class="lines"><div class="l1"></div><div class="l2"></div></div>
+          <span class="tag" style="background:rgba(0,212,200,.18);color:#00d4c8">5d</span>
+        </div>
+        <div class="item">
+          <div class="chip" style="background:#ff6b9a"></div>
+          <div class="lines"><div class="l1"></div><div class="l2"></div></div>
+          <span class="tag" style="background:rgba(255,107,154,.18);color:#ff6b9a">1d</span>
+        </div>
+        <div class="item">
+          <div class="chip" style="background:#00d4c8"></div>
+          <div class="lines"><div class="l1"></div><div class="l2"></div></div>
+          <span class="tag" style="background:rgba(124,92,255,.2);color:#a892ff">12d</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>&copy; <span id="y"></span> expiro.store &middot; All rights reserved</footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
